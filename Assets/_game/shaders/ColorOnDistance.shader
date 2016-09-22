@@ -6,7 +6,9 @@
 		_Metallic ("Metallic", Range(0,1)) = 0.0
 		_ColorerRadius ("Colorer Radius", Float) = 3.0
 		_ColorerPosition("Colorer Position", Vector) = (0,0,0,1)
-
+		_Softness ("Softness", Float) = 1.0
+		_SoftnessWidth ("Softness Width", Float) = 1.0
+		
 	}
 
 	SubShader {

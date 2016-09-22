@@ -8,6 +8,8 @@ public class ColorOnDistance : MonoBehaviour {
 	private HashSet<Material> materials;
 	public Transform colorer;
 	public float radius;
+	public float softness;
+	public float softnessWidth;
 
 	void Start(){
 		materials = new HashSet<Material> ();
@@ -26,6 +28,8 @@ public class ColorOnDistance : MonoBehaviour {
 		foreach (Material m in materials) {
 			m.SetVector ("_ColorerPosition", colorer.position);
 			m.SetFloat ("_ColorerRadius", radius);
-		}
+			m.SetFloat ("_Softness", softness);
+			m.SetFloat ("_SoftnessWidth", softnessWidth);
+			}
 	}
 }

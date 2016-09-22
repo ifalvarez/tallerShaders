@@ -10,6 +10,8 @@ half _Metallic;
 fixed4 _Color;
 float4 _ColorerPosition;
 float _ColorerRadius;
+float _Softness;
+float _SoftnessWidth;
 
 float2 sinusoid (float2 x, float2 m, float2 M, float2 p) {
 	float2 e   = M - m;
@@ -32,10 +34,16 @@ void surf (Input IN, inout SurfaceOutputStandard o) {
 		+ sinusoid(localPos.y * _SinTime / 5, -0.1, 0.1, 0.05);
 
 	// Recolor to grayscale if the pixel is outside the radius
-	if(distance(_ColorerPosition, IN.worldPos) > colorRadius){
+	float d = distance(_ColorerPosition, IN.worldPos); 
+	if(d > colorRadius){
 		o.Albedo = lum;
 	}else{
-		o.Albedo = c.rgb;
+		// Use softness when the pixel is within the softnessWidth 
+		if(d > colorRadius - _SoftnessWidth){
+			o.Albedo = lerp(c.rgb, lum, (d - colorRadius + _SoftnessWidth) * _Softness / _SoftnessWidth);
+		}else{
+			o.Albedo = c.rgb;
+		}
 	}
 
 	// Metallic and smoothness come from slider variables
